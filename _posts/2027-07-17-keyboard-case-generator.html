@@ -6,68 +6,42 @@ date: 2026-07-17
 tags: [keyboards, 3d-printing, javascript, ai]
 image: /assets/images/ts-keyboardgen.png
 excerpt: "An LLM port of my Blender plugin, usable in your browser."
-custom_scripts:
-  - src: /assets/js/keyboard.js
-    type: module
-    defer: false
 github: https://github.com/imadeathingie/KeyboardCaseGenerator
+app_url: https://imadeathingie.github.io/KeyboardCaseGenerator/
 ---
 
-  <div id="app">
+<style>
+  .app-frame {
+    width: 100%;
+    height: calc(100vh - 220px);
+    min-height: 640px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--paper);
+    display: block;
+  }
 
-    <aside>
-      <div>
-        <label class="field-label" for="sample-select">Sample board</label>
-        <div class="row">
-          <select id="sample-select">
-            <option value="">&mdash; choose a sample &mdash;</option>
-          </select>
-          <button id="open-file" type="button" style="flex: 0 0 auto">Open JSON&hellip;</button>
-          <input id="file-input" type="file" accept=".json,application/json" hidden />
-        </div>
-      </div>
+  .app-frame-note {
+    margin-top: 12px;
+    font-size: 0.85rem;
+    opacity: 0.8;
+  }
 
-      <div id="entry-row" hidden>
-        <label class="field-label" for="entry-select">Board in this file</label>
-        <select id="entry-select"></select>
-      </div>
+  @media (max-width: 860px) {
+    .app-frame {
+      height: 80vh;
+    }
+  }
+</style>
 
-      <div style="display: flex; flex-direction: column; flex: 1; min-height: 0">
-        <label class="field-label" for="editor">Keyboard JSON</label>
-        <textarea id="editor" spellcheck="false"
-          placeholder="Paste a keyboard definition or keylist here&hellip;"></textarea>
-        <p class="hint">Edit freely, then rebuild &mdash; Ctrl+Enter works too.</p>
-      </div>
+<iframe
+  class="app-frame"
+  src="{{ page.app_url }}"
+  title="Keyboard Case Generator"
+  loading="lazy"
+  allow="fullscreen"
+  allowfullscreen></iframe>
 
-      <div id="error-box" role="alert" hidden></div>
-
-      <button id="build" class="primary" type="button">Rebuild model</button>
-
-      <div>
-        <span class="field-label">Parts</span>
-        <div id="parts"></div>
-      </div>
-
-      <div>
-        <span class="field-label">Export</span>
-        <div class="row">
-          <button id="export-stl" type="button">Download STL</button>
-          <button id="export-json" type="button">Download JSON</button>
-        </div>
-        <p class="hint">STL contains the parts currently shown, merged. Export baseplate separately.</p>
-      </div>
-    </aside>
-
-    <div id="viewport-wrap">
-      <div id="viewport" aria-label="3D preview of the keyboard case"></div>
-      <div id="viewport-toolbar">
-        <select id="render-mode" aria-label="Render mode">
-          <option value="edges" selected>Solid + edges</option>
-          <option value="solid">Solid</option>
-          <option value="wireframe">Wireframe</option>
-        </select>
-        <button id="frame" type="button" title="Fit the model in view">Fit view</button>
-      </div>
-      <div id="status" aria-live="polite"></div>
-    </div>
-  </div>
+<p class="app-frame-note">
+  Not loading? <a href="{{ page.app_url }}" target="_blank" rel="noopener">Open the generator in its own tab</a>.
+</p>
